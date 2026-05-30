@@ -20,7 +20,7 @@ enum ServerMessageType: String, Decodable {
     case userTyping = "USER_TYPING"
 }
 
-struct ServerMessage: Decodable {
+struct ServerMessage: Decodable, Sendable {
     let type: ServerMessageType
     let payload: DecodablePayload
 
@@ -60,7 +60,7 @@ struct ServerMessage: Decodable {
     }
 }
 
-protocol DecodablePayload: Decodable { }
+protocol DecodablePayload: Decodable, Sendable { }
 
 
 // Payloads

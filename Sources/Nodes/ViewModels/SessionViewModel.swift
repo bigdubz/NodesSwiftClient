@@ -72,19 +72,17 @@ final class SessionViewModel: ObservableObject {
     }
 }
 
-
 extension SessionViewModel: ChatWebSocketClientDelegate {
-    func webSocketDidConnect(_ client: ChatWebSocketClient) {
+    nonisolated func webSocketDidConnect(_ client: ChatWebSocketClient) {
         print("WebSocket Connected")
     }
 
-    func webSocketDidDisconnect(_ client: ChatWebSocketClient, error: Error?) {
+    nonisolated func webSocketDidDisconnect(_ client: ChatWebSocketClient, error: Error?) {
         print("WebSocket Disconnected:", error?.localizedDescription ?? "clean")
     }
 
-    func webSocket(_ client: ChatWebSocketClient, didReceive message: ServerMessage) {
+    nonisolated func webSocket(_ client: ChatWebSocketClient, didReceive message: ServerMessage) {
         print("WebSocket Message:", message.type.rawValue)
-        // Ensure delivery to ChatViewModel on the main actor
         Task { @MainActor in
             self.activeChatVM?.handleWSMessage(message)
             self.chatListVM?.handleWSMessage(message)

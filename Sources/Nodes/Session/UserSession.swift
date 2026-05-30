@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-
+@MainActor
 final class UserSession: ObservableObject {
     static let shared = UserSession()
 
